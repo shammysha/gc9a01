@@ -75,7 +75,7 @@ async def to_code(config):
         config[CONF_EIGHT_BIT_COLOR],
     )
     await setup_gc9a01(var, config)
-    await spi.register_spi_device(var, config)
+#    await spi.register_spi_device(var, config)
 
     dc = await cg.gpio_pin_expression(config[CONF_DC_PIN])
     cg.add(var.set_dc_pin(dc))
