@@ -26,6 +26,7 @@ gc9a01_ns = cg.esphome_ns.namespace("gc9a01")
 SPIGC9A01 = gc9a01_ns.class_(
     "GC9A01", cg.PollingComponent, display.DisplayBuffer, spi.SPIDevice
 )
+SPIGC9A01Ref = SPIGC9A01.operator("ref")
 
 GC9A01_SCHEMA = display.FULL_DISPLAY_SCHEMA.extend(
     {
@@ -60,7 +61,7 @@ async def setup_gc9a01(var, config):
         cg.add(var.set_reset_pin(reset))
     if CONF_LAMBDA in config:
         lambda_ = await cg.process_lambda(
-            config[CONF_LAMBDA], [(display.DisplayBufferRef, "it")], return_type=cg.void
+            config[CONF_LAMBDA], [(SPIGC9A01Ref, "it")], return_type=cg.void
         )
         cg.add(var.set_writer(lambda_))
 
